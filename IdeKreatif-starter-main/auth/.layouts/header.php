@@ -1,14 +1,25 @@
 <?php
-session_start(); // inisialisali session
-// ambil notifikasi jika ada, kemudian hapus dari sesi
+session_start(); // Inisialisasi session
+
+// Ambil notifikasi jika ada, kemudian hapus dari session
 $notification = $_SESSION['notification'] ?? null;
 if ($notification) {
-  unset($_SESSION['notification']);
+    unset($_SESSION['notification']);
 }
+
+// Periksa apakah user sudah login (username atau role sudah diset di session)
 if (isset($_SESSION["username"]) || isset($_SESSION["role"])) {
-  $_SESSION['notification'] = ['type', => 'danger', 'message' => 'Silahkan Logout Terlebih Dahulu!'];
-  header('location: ../dashboard.php');
+    // Jika user sudah login, berikan notifikasi dan arahkan ke dashboard
+    $_SESSION['notification'] = [
+        'type' => 'danger',
+        'message' => 'Silahkan Logout Terlebih Dahulu!'
+    ];
+    header('Location: ../dashboard.php');
+    exit();
 }
+
+// Kode lainnya dapat ditempatkan di sini
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

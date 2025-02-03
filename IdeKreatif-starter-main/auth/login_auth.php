@@ -7,7 +7,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST["password"];
 
     $sql = "SELECT * FROM users WHERE username='$username'";
-    $result = $coon->qurey($sql);
+    $result = $conn->query($sql);
 
     if ($result->num_rows> 0){
         $row = $result->fetch_assoc();
@@ -20,24 +20,24 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $_SESSION['notification'] = [
                 'type' => 'primary',
-                'massage' => 'selamat datang kembali'
+                'message' => 'selamat datang kembali'
             ];
             header('Location: ../dashboard.php');
-            axit();
+            exit();
         }else {
             $_SESSION['notification'] = [
                 'type' => 'danger',
-                'massage' => 'username atau password salah'
+                'message' => 'username atau password salah'
             ];
         }
     } else {
         $_SESSION['notification'] = [
             'type' =>'danger',
-            'massage' => 'username atau password salah',
+            'message' => 'username atau password salah',
 
         ];
     }
-    header('location: ../dashboard.php');
+    header('Location: login.php');
     exit();
 }
 $coon->close();

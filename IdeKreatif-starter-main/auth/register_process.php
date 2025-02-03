@@ -1,7 +1,7 @@
 <?php
 require_once("../config.php");
-
-sessiom_start();
+// Mulai session
+session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST["username"];
@@ -10,20 +10,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
     $sql = "INSERT INTO users (username, name, password)
-    VALUES ('$username','$name','$password')";
+            VALUES ('$username', '$name', '$hashedPassword')";
     if ($conn->query($sql) === TRUE) {
-
-        $SESSION['notification'] = [
+        // Simpan notifikasi ke dalam session
+        $_SESSION['notification'] = [
             'type' => 'primary',
             'message' => 'Registrasi Berhasil!'
         ];
     } else {
-        $SESSION['notification'] = [
+        $_SESSION['notification'] = [
             'type' => 'danger',
             'message' => 'Gagal Registrasi: ' . mysqli_error($conn)
         ];
     }
-    header(Location: login.php);
+
+    header('Location: login.php');
     exit();
 }
 

@@ -16,7 +16,7 @@ if (isset($_POST['simpan'])) {
     $categoryId = $_POST["category_id"];
 
     //mengatur direktori
-    $imageDir = "assests/img/uploads/";
+    $imageDir = "assets/img/uploads/";
     $imageName = $_FILES["image"]["name"];
     $imagePath = $imageDir . basename($imageName);
 
@@ -115,7 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update'])) {
 
     //update data postingan di database
     $queryUpdate = "UPDATE posts SET post_title = '$postTitle',
-    content = '$content', category_id = $category_id,
+    content = '$content', category_id = $categoryId,
     image_path = '$imagePath' WHERE id_post = $postId";
 
     if ($conn->query($queryUpdate) === TRUE) {
